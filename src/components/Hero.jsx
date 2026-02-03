@@ -1,4 +1,5 @@
 import React from 'react';
+import heroImage from '../assets/hero_family.png';
 
 const Hero = ({ scrollToForm }) => {
     return (
@@ -40,25 +41,15 @@ const Hero = ({ scrollToForm }) => {
                     </div>
                 </div>
                 <div className="hero-image fade-in" style={{ animationDelay: '0.2s', position: 'relative' }}>
-                    {/* Placeholder for an illustration */}
-                    <div style={{
-                        width: '100%',
-                        height: '400px',
-                        backgroundColor: '#e1eff9',
-                        borderRadius: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        position: 'relative',
-                        overflow: 'hidden'
-                    }}>
-                        <div style={{ textAlign: 'center', color: 'var(--color-primary)', opacity: 0.7 }}>
-                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                            <p>Family Protection</p>
-                        </div>
-                    </div>
+                    <img
+                        src={heroImage}
+                        alt="Happy family planning their future"
+                        style={{
+                            width: '100%',
+                            borderRadius: '20px',
+                            boxShadow: 'var(--shadow-lg)'
+                        }}
+                    />
                     {/* Decorative elements */}
                     <div style={{
                         position: 'absolute',

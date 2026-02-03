@@ -29,14 +29,40 @@ const LeadForm = () => {
         return Object.keys(tempErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSce2XV_sWxOwr68jXl7R-afyoV4hoCxJPTnF7Y9Yym3TRZQaw/formResponse';
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            // Simulate API call
-            console.log("Submitting form data:", formData);
-            setSubmitted(true);
-            setTimeout(() => setSubmitted(false), 5000);
-            setFormData({ name: '', phone: '', type: 'Term' });
+            try {
+                const formDataToSubmit = new FormData();
+                formDataToSubmit.append('entry.2022569240', formData.name);
+                formDataToSubmit.append('entry.1540516407', formData.phone);
+
+                // Map the type to Google Form options
+                let interestType = formData.type;
+                if (formData.type === 'Term') interestType = 'Term Insurance';
+                if (formData.type === 'Health') interestType = 'Health Insurance';
+
+                formDataToSubmit.append('entry.61013560', interestType);
+
+                await fetch(GOOGLE_FORM_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formDataToSubmit
+                });
+
+                setSubmitted(true);
+                setFormData({ name: '', phone: '', type: 'Term' });
+
+                // Reset success message after 5 seconds
+                setTimeout(() => setSubmitted(false), 5000);
+            } catch (error) {
+                console.error("Form submission error:", error);
+                // Even if there's a network error, we might want to show an error message.
+                // But with no-cors, we mostly just assume success if no network exception.
+                alert("Something went wrong. Please try again later.");
+            }
         }
     };
 
